@@ -20,11 +20,11 @@ class LoadBalancer {
             return time;
         }
 
-        int addTime() {
+        void addTime() {
             time++;
         }
 
-        bool pushRequest(Request req) {
+        void pushRequest(Request req) {
             RequestQueue.push(req);
             addTime();
         }

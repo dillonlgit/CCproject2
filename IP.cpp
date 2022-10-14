@@ -13,7 +13,9 @@ class IP {
 
         IP() {
             a = "";
+            generate_IP();
         }   
+
         void generate_IP() {
             int a1 = rand() % 999;
             a = "";
@@ -30,6 +32,6 @@ class IP {
         }
 
         string get_IP() {
-            return "IP: " + a + ":" +  b + ":" +  c + ":" +  d;
+            return "" + a + ":" +  b + ":" +  c + ":" +  d;
         }
 };

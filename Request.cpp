@@ -1,4 +1,5 @@
 #include <string>
+#include "IP.cpp"
 using namespace std;
 
 class Request {
@@ -20,6 +21,13 @@ class Request {
             IpIn = IP1;
             IpOut = IP2;
             time = t;
+        }
+
+        void randomize(int maxRequestDuration) {
+            IP in, out = IP();
+            IpIn = in.get_IP();
+            IpOut = out.get_IP();
+            time = rand() % maxRequestDuration + 1;
         }
 
         int getTime() {
