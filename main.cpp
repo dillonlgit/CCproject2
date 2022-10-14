@@ -5,14 +5,14 @@ int main () {
     int runTime = 0;
     cout << "Enter the number of servers: ";
     //cin >> numServers;
-    numServers = 3;
+    numServers = 10;
     cout << "Enter the time you'd like to run: ";
     //cin >> runTime;
-    runTime = 19;
+    runTime = 10000;
     // hyperparameters, not currently as user input, maybe it should be?
     int queueSize = numServers * 2;
-    int maxRequestDuration = 5;
-    float chanceToAddRequest = 0.3; // Every clock cycle, determine whether to add a request
+    int maxRequestDuration = 75;
+    float chanceToAddRequest = 0.6; // Every clock cycle, determine whether to add a request
 
     srand(time(NULL));
     LoadBalancer lb = LoadBalancer(); 
@@ -42,13 +42,13 @@ int main () {
                 }
                 // If queue is empty, continue!
                 if (lb.queueIsEmpty()) {
-                    cout << "FINISHED: Queue is empty at time: " << lb.getTime();
                     continue;
                 }
                 // Add a request to webserver
                 Request newRequest = lb.popRequest();
-                servers[i].addRequest(newRequest);
+                servers[i].addRequest(newRequest, lb.getTime());
                 cout << "Started " << newRequest.toString() << " on server " << to_string(i) << " at time " << lb.getTime() << endl;
+                serversBusy = true;
                 lb.addTime();
                 break;
             } else {
@@ -71,18 +71,15 @@ int main () {
                 Request req = Request();
                 req.randomize(maxRequestDuration);
                 lb.pushRequest(req);
-            } else {
-                //cout << "DEBUGGING: We didn't reach random threshold to add" << endl;
             }
         } else  {
-            cout << "Queue is full at time: " << lb.getTime();
+            cout << "Queue is full at time: " << lb.getTime() << endl;
         }
 
-        //lb.addTime();
-    } 
-
-
-
-    cout << "Exited program at time: " << lb.getTime() << endl;
+        lb.addTime();
+    }
+    if (lb.getTime() >= runTime) {
+        cout << "RUNTIME FINISHED: exited program at time: " << lb.getTime() << endl;
+    }
 
 }

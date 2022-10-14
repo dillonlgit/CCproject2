@@ -7,8 +7,9 @@ class WebServer {
         int reqStartTime = 0;
     public:
         // We currently assume that the LoadBalancer is correctly distributing requests.
-        void addRequest(Request newReq) {
+        void addRequest(Request newReq, int time) {
             req = newReq;
+            reqStartTime = time;
         }
 
         // check if request has completed
