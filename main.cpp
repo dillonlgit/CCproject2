@@ -72,7 +72,7 @@ int main () {
                 lb.pushRequest(req);
             }
         } else  {
-            //cout << "DEBUGGING: Queue is full at time: " << lb.getTime() << endl;
+            cout << "DEBUGGING: Queue is full at time: " << lb.getTime() << endl;
         }
 
         lb.addTime();
@@ -80,5 +80,7 @@ int main () {
     if (lb.getTime() >= runTime) {
         cout << "RUNTIME FINISHED: exited program at time: " << lb.getTime() << endl;
     }
-
+    cout << "Starting Queue Size: " << queueSize << endl;
+    cout << "Task Time Duration Range: 0 to " << maxRequestDuration << endl; 
+    cout << "Ending Queue Size: " << lb.queueSize() << endl;
 }
