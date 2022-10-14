@@ -4,10 +4,9 @@ int main () {
     int numServers = 0;
     int runTime = 0;
     cout << "Enter the number of servers: ";
-    //cin >> numServers;
-    numServers = 10;
-    cout << "Enter the time you'd like to run: ";
-    //cin >> runTime;
+    cin >> numServers;
+    cout << "Enter the amount of clock cycles you'd like to run: ";
+    cin >> runTime;
     runTime = 10000;
     // hyperparameters, not currently as user input, maybe it should be?
     int queueSize = numServers * 2;
@@ -29,7 +28,7 @@ int main () {
 
     // main loop
     while (lb.getTime() < runTime) {
-        cout << "Current time: " << lb.getTime() << endl;
+        //cout << "DEBUGGING: Current time: " << lb.getTime() << endl;
         bool serversBusy = false;
         // Try to add a request to a webserver
         for (int i = 0; i < numServers; i++) {
@@ -56,7 +55,7 @@ int main () {
                 serversBusy = true;
             }
         }
-        // C++ sucks, if there were for..else in here I wouldn't need this if statement!
+
         if (serversBusy == false && lb.queueIsEmpty()) {
             // If none of the servers are busy, and the queue is empty,
             // the queue is empty and all requests have complete. Finish program.
@@ -67,13 +66,13 @@ int main () {
         // Randomly add more requests to the queue (simulation)
         if (!lb.queueIsFull()) {
             if(rand() % 100 < chanceToAddRequest * 100) {
-                cout << "We're randomly adding to queue" << endl;
+                //cout << "DEBUGGING: We're randomly adding to queue" << endl;
                 Request req = Request();
                 req.randomize(maxRequestDuration);
                 lb.pushRequest(req);
             }
         } else  {
-            cout << "Queue is full at time: " << lb.getTime() << endl;
+            //cout << "DEBUGGING: Queue is full at time: " << lb.getTime() << endl;
         }
 
         lb.addTime();

@@ -32,13 +32,13 @@ class LoadBalancer {
 
         void pushRequest(Request req) {
             RequestQueue.push(req);
-            cout << "DEBUGGING: queue size after push: " << RequestQueue.size() << endl;
+            //cout << "DEBUGGING: queue size after push: " << RequestQueue.size() << endl;
         }
 
         Request popRequest() {
             Request req = RequestQueue.front();
             RequestQueue.pop();
-            cout << "DEBUGGING: queue size after pop: " << RequestQueue.size() << endl;
+            //cout << "DEBUGGING: queue size after pop: " << RequestQueue.size() << endl;
             return req;
         }
 
