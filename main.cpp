@@ -1,20 +1,33 @@
+/**
+ * @file main.cpp 
+ * This is the main file which runs the load balancer and produces input/output.
+ * All the functionality for the load balancer, server, and requests come from their own files,
+ * but the main loop is implemented in the main() function here.
+ */
+
 #include "LoadBalancer.cpp"
 
+/**
+ * Runs the main loop for the load balancer and all of the functionaltiy of the program.
+ */
 int main () {
+    /// numServers is input by the user, and describes how many servers to simulate.
     int numServers = 0;
+    /// runTime is input by the user, and sets how many clock cycles to run before completing the program.
     int runTime = 0;
     cout << "Enter the number of servers: ";
     cin >> numServers;
     cout << "Enter the amount of clock cycles you'd like to run: ";
     cin >> runTime;
-    runTime = 10000;
-    // hyperparameters, not currently as user input, maybe it should be?
+    /// queueSize is a hyperparameter currently coded as numServers * 2 per assignment instructions. This limits the size of the queue when randomly adding more requests. 
     int queueSize = numServers * 2;
+    /// maxRequestDuration is a hyperparameter which is set as 75 in the code, and should be tuned according to the amount of servers and clock cycles. This is roughly how many loops the load balancer will simulate.
     int maxRequestDuration = 75;
-    float chanceToAddRequest = 0.6; // Every clock cycle, determine whether to add a request
+    /// chanceToAddRequest is a hyperparameter which gives a random weighted value to the chance to add a new request every cycle.
+    float chanceToAddRequest = 0.55; 
 
     srand(time(NULL));
-    LoadBalancer lb = LoadBalancer(); 
+    LoadBalancer lb = LoadBalancer(queueSize); 
 
     // full queue at t=0
     for  (int i = 0; i < queueSize; i++) {

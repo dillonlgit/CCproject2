@@ -1,3 +1,8 @@
+/**
+ * @file IP.cpp 
+ * This file implements the IP generation required for generating random addresses for requests.
+ */
+
 #include <iostream>
 #include <string>
 //#include <random>
@@ -11,11 +16,13 @@ class IP {
     string d;
     public:
 
+        /// This is the default constructor, which generates a random IP.
         IP() {
             a = "";
             generate_IP();
         }   
 
+        /// This generates random values for each section of the IP.
         void generate_IP() {
             int a1 = rand() % 999;
             a = "";
@@ -31,6 +38,7 @@ class IP {
             d.append(to_string(d1));
         }
 
+        /// This function returns a string version of the IP.
         string get_IP() {
             return "" + a + ":" +  b + ":" +  c + ":" +  d;
         }
