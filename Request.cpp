@@ -33,4 +33,8 @@ class Request {
         int getTime() {
             return time;
         }
+
+        string toString() {
+            return "request from IP " + IpIn + " to IP " + IpOut + " with duration " + to_string(time);
+        }
 };

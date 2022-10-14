@@ -1,23 +1,23 @@
 #include "Request.cpp"
+#include <iostream>
 
 class WebServer {
     private:
-        Request req;
-        int uptime;
-        int reqStartTime;
+        Request req = Request();
+        int reqStartTime = 0;
     public:
-        bool addRequest(Request newReq) {
-            // check if current request complete
-            if(uptime > reqStartTime + req.getTime()) {
-                // TODO: add something for finishing a request
-                req = newReq;
-                return true;
-            } else {
-                return false;
-            }
+        // We currently assume that the LoadBalancer is correctly distributing requests.
+        void addRequest(Request newReq) {
+            req = newReq;
         }
 
-        void updateTime(int time) {
-            uptime = time;
+        // check if request has completed
+        bool available (int time) {
+            return reqStartTime + req.getTime() <= time;
         }
+
+        Request finishRequest() {
+            return req; 
+        }
+
 };

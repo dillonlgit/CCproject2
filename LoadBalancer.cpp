@@ -10,10 +10,16 @@ class LoadBalancer {
     private:
         queue<Request> RequestQueue;
         int time;
+        int maxQueueSize = 10;
 
     public:
         LoadBalancer() {
             time = 0;
+        }
+
+        LoadBalancer(int queueSize) {
+            time = 0;
+            maxQueueSize = queueSize;
         }
 
         int getTime() {
@@ -26,14 +32,21 @@ class LoadBalancer {
 
         void pushRequest(Request req) {
             RequestQueue.push(req);
-            addTime();
+            cout << "DEBUGGING: queue size after push: " << RequestQueue.size() << endl;
         }
 
         Request popRequest() {
-            if (!RequestQueue.empty()) {
-                Request req = RequestQueue.front();
-                RequestQueue.pop();
-                return req;
-            }
+            Request req = RequestQueue.front();
+            RequestQueue.pop();
+            cout << "DEBUGGING: queue size after pop: " << RequestQueue.size() << endl;
+            return req;
+        }
+
+        bool queueIsFull() {
+            return RequestQueue.size() >= maxQueueSize;
+        }
+
+        bool queueIsEmpty() {
+            return RequestQueue.size() <= 0;
         }
 };
